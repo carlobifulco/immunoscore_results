@@ -1,20 +1,55 @@
 require_relative "analyzer"
+require_relative "immunoscore_results_loader"
 
 ### Specify Database name; dynamic based on dir
 DATABASE_NAME=File.basename File.absolute_path "."
 MongoMapper.database = DATABASE_NAME
 
-module Show
-  def show file_path=self.path
-    tf=Tempfile.new ["temp",File.extname(file_path)]
-    tf.write (File.read file_path)
+# module Show
+#   def show file_path=self.path
+#     tf=Tempfile.new ["temp",File.extname(file_path)]
+#     tf.write (File.read file_path)
+#     tf.close
+#     puts "#{tf.path}"
+#     fork do
+#       `open #{tf.path}`
+
+#     end
+#     puts Process.waitall
+#     tf.unlink
+#   end
+# end
+
+### Enables all Mongo classes listed below to have instances capable their own CD quicly
+module CdIncluder
+  def get_cd
+    puts self.cd_type
+    if (self.cd_type and self.case_n) != nil 
+      cd= Cd.get(self.cd_type, self.case_n)
+    end
+    puts cd
+    if cd
+      self.cd=cd
+    end
+    self.save
+  end
+end
+
+### enables loading and showing of binary datatsets
+module BinManager
+  def load_bin
+    self.data_load=File.read path
+  end
+  
+  def show graphic_data=self.data_load
+    tf=Tempfile.new ["temp",".jpg"]
+    tf.write graphic_data
     tf.close
     puts "#{tf.path}"
     fork do
       `open #{tf.path}`
-
     end
-    puts Process.waitall
+    Process.wait
     tf.unlink
   end
 end
@@ -58,20 +93,7 @@ class Cd
   end
 end
 
-### Enables all Mongo classes listed below to have instances capable their own CD quicly
-module CdIncluder
-  def get_cd
-    puts self.cd_type
-    if (self.cd_type and self.case_n) != nil 
-      cd= Cd.get(self.cd_type, self.case_n)
-    end
-    puts cd
-    if cd
-      self.cd=cd
-    end
-    self.save
-  end
-end
+
 
 
   # {:cd=>"CD3",
@@ -85,7 +107,7 @@ class CtTile
   include MongoMapper::Document
   include DataUtilities
   include CdIncluder
-  include Show
+  include BinManager
   extend ClassDataUtilities
   safe
   timestamps!
@@ -94,6 +116,8 @@ class CtTile
   key :path, String
   key :case_n, String
   key :cd_type, String
+  key :data_load, Binary
+  before_save :load_bin
 end
 
 
@@ -102,7 +126,7 @@ class ImTile
   include MongoMapper::Document
   include DataUtilities
   include CdIncluder
-  include Show
+  include BinManager
   extend ClassDataUtilities
   safe
   timestamps!
@@ -111,6 +135,8 @@ class ImTile
   key :path, String
   key :case_n, String
   key :cd_type, String
+  key :data_load, Binary
+  before_save :load_bin
 end
 
 # {:case=>"SM02-2456-A6",
@@ -122,7 +148,7 @@ class Classification
   include MongoMapper::Document
   include DataUtilities
   include CdIncluder
-  include Show
+  include BinManager
   extend ClassDataUtilities
   safe
   timestamps!
@@ -130,13 +156,15 @@ class Classification
   key :path, String
   key :case_n, String
   key :cd_type, String
+  key :data_load, Binary
+  before_save :load_bin
 end
 
 class Original
   include MongoMapper::Document
   include DataUtilities
   include CdIncluder
-  include Show
+  include BinManager
   extend ClassDataUtilities
   safe
   timestamps!
@@ -144,6 +172,8 @@ class Original
   key :path, String
   key :case_n, String
   key :cd_type, String
+  key :data_load, Binary
+  before_save :load_bin
 end
 
  # {:case=>"RS_SM02-2576-A4_CD3_2013-11-01 16_52_41.image_0000006553",
@@ -156,7 +186,7 @@ class Statistic
   include MongoMapper::Document
   include DataUtilities
   include CdIncluder
-  include Show
+  include BinManager
   extend ClassDataUtilities
   safe
   timestamps!
@@ -164,6 +194,8 @@ class Statistic
   key :path, String
   key :case_n, String
   key :cd_type, String
+  key :data_load, Binary
+  before_save :load_bin
 end
 
 
@@ -177,7 +209,7 @@ class Density
   include MongoMapper::Document
   include DataUtilities
   include CdIncluder
-  include Show
+  include BinManager
   extend ClassDataUtilities
   safe
   timestamps!
@@ -186,6 +218,8 @@ class Density
   key :case_n, String
   key :cd_type, String
   key :new_old, String
+  key :data_load, Binary
+  before_save :load_bin
 end
 
 
@@ -198,7 +232,7 @@ class Histogram
   include MongoMapper::Document
   include DataUtilities
   include CdIncluder
-  include Show
+  include BinManager
   extend ClassDataUtilities
   safe
   timestamps!
@@ -206,14 +240,38 @@ class Histogram
   key :path, String
   key :case_n, String
   key :cd_type, String
+  key :data_load, Binary
+  before_save :load_bin
 end
 
 
+class Test
+  include MongoMapper::Document
+  include DataUtilities
+  include CdIncluder
+  include BinManager
+  extend ClassDataUtilities
+ 
+  key :path, String
+  
+  key :data_load, Binary
+  before_save :load_bin
+
+
+end
+
+JSON_CLASS_MAPPER={:ct_tile=>CtTile,
+  :im_tile=>ImTile,
+  :classification=>Classification,
+  :original=>Original,
+  :statistic=>Statistic,
+  :density=>Density,
+  :histogram=>Histogram}
 
 
 
 def mm_clean_all
-  [StatResults, ImmunoScoreResults, Cd, Histogram, Density, Statistic, Original, Classification, ImTile, CtTile].each do |mm_class|
+  [ImmunoScoreResults, Cd, Histogram, Density, Statistic, Original, Classification, ImTile, CtTile].each do |mm_class|
     mm_class.delete_all
   end
 end

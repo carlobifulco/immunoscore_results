@@ -9,7 +9,8 @@ require_relative "data_struct"
 
 # filename convetions
 # RS_SP02-15779-A8__CD3_2013...
-# no underscores inn the file name after the RS prefix
+# no underscores in the file name after the RS prefix
+# they are required before and after case number for pattern matching
 
 #### A few examples of what we are looking for
 #
@@ -20,8 +21,11 @@ require_relative "data_struct"
 #image_0000006506_CT1.jpg. CT2, CT3
 #IM1, IM2, IM3
 
-### Were all the Definies stuff resides
+### Where all the Definies stuff resides
 BASE_DIR="/Volumes/cbb_transfer"
+
+
+
 #BASE_DIR="/Volumes/I\$/Christopher\ Paustian/Colon\ Immunoscore"
 
 ### regex utilities
@@ -39,13 +43,18 @@ def pull_im path
   path.match(pattern)[1] if path.match(pattern)
 end
 
+def get_case_n path
+  match=path.match(/(RS[_-]....[-_]\d*)/)
+  match[0] if match
+end
+
 
 ### core function
 def find_files file_name_ending="*Classification.jpg", base_dir=BASE_DIR
   results=[]
   Dir.glob("#{base_dir}/**/#{file_name_ending}").each do |full_path|
     directory_name=full_path.split("\/")[-4]
-    case_name=directory_name.split("_")[1]
+    case_name=get_case_n full_path
     cd=directory_name.split("_")[2]
     results << {:case_n=>case_name,
                 :cd_type =>cd,
@@ -59,7 +68,7 @@ end
 
 def find_ct 
   find_files(file_name_ending="*image*CT*.jpg").map{|x| x[:path]}.map do |path|
-    case_n=path.split("\/")[-3].split("_")[1]
+    case_n=get_case_n path
     cd =pull_cd(path)
     tile=pull_ct path
     {:cd_type=>cd, :path=>path, :tile=>tile, :case_n=>case_n, :type=>:ct_tile}
@@ -68,7 +77,7 @@ end
 
 def find_im
   find_files(file_name_ending="*image*IM*.jpg").map{|x| x[:path]}.map do |path|
-    case_n=path.split("\/")[-3].split("_")[1]
+    case_n=get_case_n path
     cd =pull_cd(path)
     tile=pull_im path
     {:cd_type=>cd, :path=>path, :tile=>tile, :case_n=>case_n,:type=>:im_tile}
@@ -90,7 +99,7 @@ end
 def find_statistics
   find_files(file_name_ending="*Statistics.csv").map do |x|
     puts x
-    {:case_n=> ((x[:path]).split("\/")[-3]).split("_")[1],
+    {:case_n=> x[:case_n],
      :path=> x[:path],
      :cd_type=>pull_cd(x[:path]),
     :type=> :statistic}
@@ -101,7 +110,7 @@ end
 def find_density
    find_files(file_name_ending="*densitymap*.jpg").map do |x|
     path=x[:path]
-    case_n=path.split("\/")[-3].split("_")[1]
+    case_n=get_case_n path
     new_old=path.gsub(".jpg","")[-3..-1]
     {:path=>path, :case_n=>case_n, :new_old=>new_old, 
       :cd_type=>pull_cd(path),:type=>:density}
@@ -111,7 +120,7 @@ end
 def find_histogram
   find_files(file_name_ending="*histogram.jpg").map do |x|
     path=x[:path]
-    case_n=path.split("\/")[-1].split("_")[1]
+    case_n=get_case_n path
     cd=pull_cd(path)
     {:path=>path, :case_n=>case_n,:type=>:histogram, :cd_type=>cd}
   end
@@ -152,13 +161,7 @@ end
 # if entry preexisting updates results
 #
 #
-def mongo_load_all search_results, json_class_mapper={:ct_tile=>CtTile,
-  :im_tile=>ImTile,
-  :classification=>Classification,
-  :original=>Original,
-  :statistic=>Statistic,
-  :density=>Density,
-  :histogram=>Histogram}
+def mongo_load_all search_results=search_all(), json_class_mapper=JSON_CLASS_MAPPER
   search_results.each_with_index do |data_set,i|
     puts "#{i}: #{data_set}"
     puts data_set["type"]
