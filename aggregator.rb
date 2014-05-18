@@ -1,11 +1,18 @@
+require_relative "analyzer"
+require_relative "data_struct"
+require_relative "immunoscore_results_loader"
+
+
+
 class StatResults
   include MongoMapper::Document
   include DataUtilities
   include CdIncluder
-  include Show
+  include BinManager
   extend ClassDataUtilities
   safe
   timestamps!
+  key :case_n, String
   key :file_name, String
   key :tissue_detection_threshold, Integer
   key :brown_threshold, Integer
@@ -79,3 +86,17 @@ class StatResults
   key :old_area_im_tile_5, Integer
   key :old_number_of_cells_im_tile_5, Integer
 end
+
+def write_stats_csv file_path
+  csv_array=[]<< Statistic.all[0].data_load.to_s.split("\n")[0]
+  ###Stat Results will contain all datasets in an csv format
+  Statistic.all.each do |stat_entry|
+    csv_array<<stat_entry.data_load.to_s.split("\n")[1]
+  end
+  csv_array
+  fh=File.new(file_path,"w")
+  csv_array.each{|l| fh.write(l+"\n")}
+  fh.close
+end
+
+
