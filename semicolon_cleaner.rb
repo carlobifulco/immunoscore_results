@@ -1,4 +1,4 @@
-
+#Copyright (c) 2014, Carlo B. Bifulco. All rights reserved.
 
 ### Cleaning of the Definines semicolon junk
 class DefinensCSV

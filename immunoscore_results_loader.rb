@@ -1,3 +1,5 @@
+#Copyright (c) 2014, Carlo B. Bifulco. All rights reserved.
+
 require "csv"
 require_relative "analyzer"
 require_relative "data_struct"
