@@ -68,10 +68,13 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <p>Copyright (c) 2014, Carlo B. Bifulco. All rights reserved.</p>
+
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">require</span> <span class="hljs-string">"csv"</span>
+            <div class="content"><div class='highlight'><pre>
+
+<span class="hljs-keyword">require</span> <span class="hljs-string">"csv"</span>
 require_relative <span class="hljs-string">"analyzer"</span>
 require_relative <span class="hljs-string">"data_struct"</span>
 require_relative <span class="hljs-string">"immunoscore_results_loader"</span></pre></div></div>
@@ -89,7 +92,7 @@ require_relative <span class="hljs-string">"immunoscore_results_loader"</span></
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-constant">EXPORT_DIR</span>=<span class="hljs-string">"./results_export"</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-constant">EXPORT_DIR</span>=<span class="hljs-constant">YAML</span>.load_file(<span class="hljs-string">"config.yaml"</span>)[<span class="hljs-string">"export_dir"</span>] <span class="hljs-keyword">or</span> <span class="hljs-string">"./results_export"</span>
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> </span>export_clean_all
   `rm -rf <span class="hljs-comment">#{EXPORT_DIR}/*`</span>

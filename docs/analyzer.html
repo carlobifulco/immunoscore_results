@@ -68,10 +68,12 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <p>Copyright (c) 2014, Carlo B. Bifulco. All rights reserved.</p>
+
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">require</span> <span class="hljs-string">'bundler/setup'</span>
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">require</span> <span class="hljs-string">'bundler/setup'</span>
 
 <span class="hljs-keyword">require</span> <span class="hljs-string">"mongo_mapper"</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">"csv"</span>
@@ -92,7 +94,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-constant">DATABASE_NAME</span>=<span class="hljs-constant">File</span>.basename <span class="hljs-constant">File</span>.absolute_path <span class="hljs-string">"."</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-constant">DATABASE_NAME</span>= <span class="hljs-constant">YAML</span>.load_file(<span class="hljs-string">"config.yaml"</span>)[<span class="hljs-string">"database)name"</span>] <span class="hljs-keyword">or</span> (<span class="hljs-constant">File</span>.basename <span class="hljs-constant">File</span>.absolute_path <span class="hljs-string">"."</span>)
 
 
 

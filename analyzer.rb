@@ -15,7 +15,7 @@ require "chronic"
 
 
 ### Specify Database name; dynamic based on dir
-DATABASE_NAME=File.basename File.absolute_path "."
+DATABASE_NAME= YAML.load_file("config.yaml")["database)name"] or (File.basename File.absolute_path ".")
 
 
 

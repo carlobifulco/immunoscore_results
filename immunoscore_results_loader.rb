@@ -24,7 +24,7 @@ require_relative "data_struct"
 #IM1, IM2, IM3
 
 ### Where all the Definies stuff resides
-BASE_DIR="/Volumes/cbb_transfer"
+BASE_DIR=YAML.load_file("config.yaml")["base_dir"] or "/Volumes/cbb_transfer"
 
 
 
@@ -45,8 +45,12 @@ def pull_im path
   path.match(pattern)[1] if path.match(pattern)
 end
 
+#### Case identification
+# matched file names staring with RS follow by either - or _ followed by SP03
+#followed by either - or _ followed by case number.  Matching of teh block
+# number is not included 
 def get_case_n path
-  match=path.match(/(RS[_-]....[-_]\d*)/)
+  match=path.match(/(RS[_-].?.?.?.?.[-_]\d*)/i)
   match[0] if match
 end
 

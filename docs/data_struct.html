@@ -68,10 +68,12 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <p>Copyright (c) 2014, Carlo B. Bifulco. All rights reserved.</p>
+
             </div>
             
-            <div class="content"><div class='highlight'><pre>require_relative <span class="hljs-string">"analyzer"</span>
+            <div class="content"><div class='highlight'><pre>
+require_relative <span class="hljs-string">"analyzer"</span>
 require_relative <span class="hljs-string">"immunoscore_results_loader"</span></pre></div></div>
             
         </li>
@@ -87,7 +89,7 @@ require_relative <span class="hljs-string">"immunoscore_results_loader"</span></
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-constant">DATABASE_NAME</span>=<span class="hljs-constant">File</span>.basename <span class="hljs-constant">File</span>.absolute_path <span class="hljs-string">"."</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-constant">DATABASE_NAME</span>= <span class="hljs-constant">YAML</span>.load_file(<span class="hljs-string">"config.yaml"</span>)[<span class="hljs-string">"database)name"</span>] <span class="hljs-keyword">or</span> (<span class="hljs-constant">File</span>.basename <span class="hljs-constant">File</span>.absolute_path <span class="hljs-string">"."</span>)
 <span class="hljs-constant">MongoMapper</span>.database = <span class="hljs-constant">DATABASE_NAME</span></pre></div></div>
             
         </li>
@@ -458,17 +460,29 @@ end</p>
 
 <span class="hljs-keyword">end</span>
 
+
 <span class="hljs-constant">JSON_CLASS_MAPPER</span>={<span class="hljs-symbol">:ct_tile=&gt;CtTile</span>,
   <span class="hljs-symbol">:im_tile=&gt;ImTile</span>,
   <span class="hljs-symbol">:classification=&gt;Classification</span>,
   <span class="hljs-symbol">:original=&gt;Original</span>,
   <span class="hljs-symbol">:statistic=&gt;Statistic</span>,
   <span class="hljs-symbol">:density=&gt;Density</span>,
-  <span class="hljs-symbol">:histogram=&gt;Histogram</span>}
+  <span class="hljs-symbol">:histogram=&gt;Histogram</span>}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <h2 id="resets-all-databases">resets all databases</h2>
 
-
-
-<span class="hljs-function"><span class="hljs-keyword">def</span> </span>mm_clean_all
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">def</span> </span>mm_clean_all
   [<span class="hljs-constant">ImmunoScoreResults</span>, <span class="hljs-constant">Cd</span>, <span class="hljs-constant">Histogram</span>, <span class="hljs-constant">Density</span>, <span class="hljs-constant">Statistic</span>, <span class="hljs-constant">Original</span>, <span class="hljs-constant">Classification</span>, <span class="hljs-constant">ImTile</span>, <span class="hljs-constant">CtTile</span>].each <span class="hljs-keyword">do</span> |mm_class|
     mm_class.delete_all
   <span class="hljs-keyword">end</span>

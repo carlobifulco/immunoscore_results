@@ -4,7 +4,7 @@ require_relative "analyzer"
 require_relative "immunoscore_results_loader"
 
 ### Specify Database name; dynamic based on dir
-DATABASE_NAME=File.basename File.absolute_path "."
+DATABASE_NAME= YAML.load_file("config.yaml")["database)name"] or (File.basename File.absolute_path ".")
 MongoMapper.database = DATABASE_NAME
 
 # module Show
@@ -262,6 +262,7 @@ class Test
 
 end
 
+
 JSON_CLASS_MAPPER={:ct_tile=>CtTile,
   :im_tile=>ImTile,
   :classification=>Classification,
@@ -271,7 +272,7 @@ JSON_CLASS_MAPPER={:ct_tile=>CtTile,
   :histogram=>Histogram}
 
 
-
+### resets all databases
 def mm_clean_all
   [ImmunoScoreResults, Cd, Histogram, Density, Statistic, Original, Classification, ImTile, CtTile].each do |mm_class|
     mm_class.delete_all
