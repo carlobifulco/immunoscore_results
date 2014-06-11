@@ -34,6 +34,11 @@
               </a>
             
               
+              <a class="source" href="database_connection.html">
+                database_connection.rb
+              </a>
+            
+              
               <a class="source" href="exporter.html">
                 exporter.rb
               </a>
@@ -74,6 +79,7 @@
             
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-keyword">require</span> <span class="hljs-string">"csv"</span>
+require_relative <span class="hljs-string">"database_connection"</span>
 require_relative <span class="hljs-string">"analyzer"</span>
 require_relative <span class="hljs-string">"data_struct"</span></pre></div></div>
             
@@ -139,7 +145,7 @@ IM1, IM2, IM3</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-constant">BASE_DIR</span>=<span class="hljs-constant">YAML</span>.load_file(<span class="hljs-string">"config.yaml"</span>)[<span class="hljs-string">"base_dir"</span>] <span class="hljs-keyword">or</span> <span class="hljs-string">"/Volumes/cbb_transfer"</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-constant">BASE_DIR</span>=<span class="hljs-constant">YAML</span>.load_file(<span class="hljs-string">"./config.yaml"</span>)[<span class="hljs-string">"base_dir"</span>] <span class="hljs-keyword">or</span> <span class="hljs-string">"/Volumes/cbb_transfer"</span></pre></div></div>
             
         </li>
         
@@ -377,7 +383,8 @@ number is not included </p>
             </div>
             
             <div class="content"><div class='highlight'><pre>    puts <span class="hljs-string">"class =<span class="hljs-subst">#{mm_class}</span>"</span>
-    query=make_query data_set</pre></div></div>
+    query=make_query data_set
+    puts <span class="hljs-string">"query= <span class="hljs-subst">#{query}</span>"</span></pre></div></div>
             
         </li>
         

@@ -9,17 +9,13 @@ require 'bicrypt'
 require "chronic"
 
 
+require_relative "database_connection"
 
 
 
 
 
-### Specify Database name; dynamic based on dir
-DATABASE_NAME= YAML.load_file("config.yaml")["database)name"] or (File.basename File.absolute_path ".")
 
-
-
-MongoMapper.database = DATABASE_NAME
 
 
 def prompt(*args)

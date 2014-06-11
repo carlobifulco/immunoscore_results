@@ -3,9 +3,7 @@
 require_relative "analyzer"
 require_relative "immunoscore_results_loader"
 
-### Specify Database name; dynamic based on dir
-DATABASE_NAME= YAML.load_file("config.yaml")["database)name"] or (File.basename File.absolute_path ".")
-MongoMapper.database = DATABASE_NAME
+require_relative "database_connection"
 
 # module Show
 #   def show file_path=self.path

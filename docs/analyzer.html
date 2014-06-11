@@ -34,6 +34,11 @@
               </a>
             
               
+              <a class="source" href="database_connection.html">
+                database_connection.rb
+              </a>
+            
+              
               <a class="source" href="exporter.html">
                 exporter.rb
               </a>
@@ -79,26 +84,16 @@
 <span class="hljs-keyword">require</span> <span class="hljs-string">"csv"</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">"gibberish"</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">'bicrypt'</span>
-<span class="hljs-keyword">require</span> <span class="hljs-string">"chronic"</span></pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-2">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
-              </div>
-              <h2 id="specify-database-name-dynamic-based-on-dir">Specify Database name; dynamic based on dir</h2>
+<span class="hljs-keyword">require</span> <span class="hljs-string">"chronic"</span>
 
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-constant">DATABASE_NAME</span>= <span class="hljs-constant">YAML</span>.load_file(<span class="hljs-string">"config.yaml"</span>)[<span class="hljs-string">"database)name"</span>] <span class="hljs-keyword">or</span> (<span class="hljs-constant">File</span>.basename <span class="hljs-constant">File</span>.absolute_path <span class="hljs-string">"."</span>)
+
+require_relative <span class="hljs-string">"database_connection"</span>
 
 
 
-<span class="hljs-constant">MongoMapper</span>.database = <span class="hljs-constant">DATABASE_NAME</span>
+
+
+
 
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> </span>prompt(*args)
@@ -109,11 +104,11 @@
         </li>
         
         
-        <li id="section-3">
+        <li id="section-2">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
+                <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
               <h2 id="encryption-and-decryption">Encryption and decryption</h2>
 <p>monkeypatching String</p>
@@ -125,11 +120,11 @@
         </li>
         
         
-        <li id="section-4">
+        <li id="section-3">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
+                <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
               <h2 id="cypher-p-p">cypher p p</h2>
 
@@ -151,11 +146,11 @@
         </li>
         
         
-        <li id="section-5">
+        <li id="section-4">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <p>some normalization of SS entries necessary</p>
 
@@ -169,11 +164,11 @@
         </li>
         
         
-        <li id="section-6">
+        <li id="section-5">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-6">&#182;</a>
+                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <h2 id="creates-a-mongomapper-class">creates a mongomapper class</h2>
 
@@ -191,11 +186,11 @@
         </li>
         
         
-        <li id="section-7">
+        <li id="section-6">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
               <h2 id="utility-for-extrapolating-mongotype">Utility for extrapolating MongoType</h2>
 <p>need dates…</p>
@@ -216,11 +211,11 @@
         </li>
         
         
-        <li id="section-8">
+        <li id="section-7">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <h1 id="array-of-rows-to-excel-file">Array of rows to excel file</h1>
 
@@ -243,11 +238,11 @@
         </li>
         
         
-        <li id="section-9">
+        <li id="section-8">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               <h2 id="splits-name-in-array-components">Splits name in array components</h2>
 <p>always returns array</p>
@@ -266,11 +261,11 @@
         </li>
         
         
-        <li id="section-10">
+        <li id="section-9">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
               <h2 id="removes-names-from-surg-path-text">Removes names from surg path text</h2>
 
@@ -300,11 +295,11 @@
         </li>
         
         
-        <li id="section-11">
+        <li id="section-10">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
               <h2 id="a-modified-csv-table-class">A modified CSV table class</h2>
 <p>Can Decrypt and encrypt</p>
@@ -358,11 +353,11 @@
         </li>
         
         
-        <li id="section-12">
+        <li id="section-11">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <p>z.find_rows :diagnosis_text,  /.(T\d)./i</p>
 
@@ -376,11 +371,11 @@
         </li>
         
         
-        <li id="section-13">
+        <li id="section-12">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <p>puts r</p>
 
@@ -415,11 +410,11 @@
         </li>
         
         
-        <li id="section-14">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               <h2 id="check-if-a-file-is-an-idiotic-csv">Check if a file is an idiotic ; csv</h2>
 <p>by counting ; and , in header line</p>
@@ -443,11 +438,11 @@
         </li>
         
         
-        <li id="section-15">
+        <li id="section-14">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
               <h2 id="check-if-a-tab-file">Check if a tab file</h2>
 <p>by counting \t and , in header line</p>
@@ -471,11 +466,11 @@
         </li>
         
         
-        <li id="section-16">
+        <li id="section-15">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <h2 id="remove-semicolons">Remove semicolons</h2>
 <p>; =&gt; ,</p>
@@ -494,11 +489,11 @@
         </li>
         
         
-        <li id="section-17">
+        <li id="section-16">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-17">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <h2 id="remove-tabs">Remove tabs</h2>
 <p>; =&gt; ,</p>
@@ -523,11 +518,11 @@
         </li>
         
         
-        <li id="section-18">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <h2 id="a-modified-csv-table-class">A modified CSV table class</h2>
 <p>Can Decrypt and encrypt</p>
@@ -540,11 +535,11 @@
         </li>
         
         
-        <li id="section-19">
+        <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-19">&#182;</a>
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               <p>remove duplicates</p>
 <p>takes col to search through </p>
@@ -560,11 +555,11 @@
         </li>
         
         
-        <li id="section-20">
+        <li id="section-19">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <p>deletes entries from index and from table</p>
 
@@ -685,11 +680,11 @@
         </li>
         
         
-        <li id="section-21">
+        <li id="section-20">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
               <h2 id="creates-a-mongo-class-mapping-csv-file">Creates a Mongo Class mapping csv file</h2>
 <p>d=DataClassifier.new “/Users/carlobifulco/Dropbox/code/next_gen/hotspot2.csv”
@@ -709,11 +704,11 @@ d.print_class</p>
         </li>
         
         
-        <li id="section-22">
+        <li id="section-21">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <p>self.instance_variable_set “@#{@class_name}”,make_mongo_class(@class_name)</p>
 
@@ -740,11 +735,11 @@ class <span class="hljs-subst">#{<span class="hljs-variable">@class_name</span>}
         </li>
         
         
-        <li id="section-23">
+        <li id="section-22">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-23">&#182;</a>
+                <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
               <p>puts row</p>
 
@@ -769,11 +764,11 @@ class <span class="hljs-subst">#{<span class="hljs-variable">@class_name</span>}
         </li>
         
         
-        <li id="section-24">
+        <li id="section-23">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-24">&#182;</a>
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <p>prints the class</p>
 
@@ -792,11 +787,11 @@ class <span class="hljs-subst">#{<span class="hljs-variable">@class_name</span>}
         </li>
         
         
-        <li id="section-25">
+        <li id="section-24">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-25">&#182;</a>
+                <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
               <h2 id="remove-empty-columns-from-csv-files">remove empty columns from CSV files</h2>
 <p>also deals with some windows encoding issues if needed</p>
@@ -823,11 +818,11 @@ class <span class="hljs-subst">#{<span class="hljs-variable">@class_name</span>}
         </li>
         
         
-        <li id="section-26">
+        <li id="section-25">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-26">&#182;</a>
+                <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
               <h2 id="factory-for-new-tables">Factory for new tables</h2>
 <p>takes care of definiens and also stores file paths
@@ -851,11 +846,11 @@ also removes nil headers</p>
         </li>
         
         
-        <li id="section-27">
+        <li id="section-26">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-27">&#182;</a>
+                <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
               <h2 id="mongoloader">MongoLoader</h2>
 <p>takes a class and a file csv file and then load it into Mongo
@@ -878,11 +873,11 @@ row.each_with_index <span class="hljs-keyword">do</span> |e,i|
         </li>
         
         
-        <li id="section-28">
+        <li id="section-27">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-28">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <pre><code>  <span class="hljs-comment">#puts "HEADERS: #{<span class="hljs-yardoctag">@headers</span>}"</span>
   <span class="hljs-comment">#puts <span class="hljs-yardoctag">@headers</span>[i]</span>
@@ -894,11 +889,11 @@ row.each_with_index <span class="hljs-keyword">do</span> |e,i|
         </li>
         
         
-        <li id="section-29">
+        <li id="section-28">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-29">&#182;</a>
+                <a class="pilcrow" href="#section-28">&#182;</a>
               </div>
               <pre><code><span class="hljs-keyword">end</span>
 puts counter
@@ -912,11 +907,11 @@ end</p>
         </li>
         
         
-        <li id="section-30">
+        <li id="section-29">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-30">&#182;</a>
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
               <h2 id="load-csv-file-into-mongo-class">Load CSV file into mongo class</h2>
 <p>Mongo class needs to exist</p>
@@ -938,11 +933,11 @@ end</p>
         </li>
         
         
-        <li id="section-31">
+        <li id="section-30">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-31">&#182;</a>
+                <a class="pilcrow" href="#section-30">&#182;</a>
               </div>
               <h2 id="convinience-for-mongomapper-classes">Convinience for Mongomapper classes</h2>
 <p>export to csv</p>
@@ -955,11 +950,11 @@ end</p>
         </li>
         
         
-        <li id="section-32">
+        <li id="section-31">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-32">&#182;</a>
+                <a class="pilcrow" href="#section-31">&#182;</a>
               </div>
               <h2 id="export-csv">Export csv</h2>
 <p>file_path - the file to be exported to
@@ -1024,11 +1019,11 @@ exports an instance</p>
         </li>
         
         
-        <li id="section-33">
+        <li id="section-32">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-33">&#182;</a>
+                <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
               <h2 id="utility-function-to-create-mongomapper-keys">Utility function to create mongomapper keys</h2>
 <p>takes a file_path of teh csv file</p>
@@ -1045,11 +1040,11 @@ exports an instance</p>
         </li>
         
         
-        <li id="section-34">
+        <li id="section-33">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-34">&#182;</a>
+                <a class="pilcrow" href="#section-33">&#182;</a>
               </div>
               <h2 id="utility-for-exporting-a-mongomapper-search">Utility for exporting a mongomapper search</h2>
 <p>takes a file name where all will be saved to in a csv format</p>
@@ -1093,11 +1088,11 @@ exports an instance</p>
         </li>
         
         
-        <li id="section-35">
+        <li id="section-34">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-35">&#182;</a>
+                <a class="pilcrow" href="#section-34">&#182;</a>
               </div>
               <h2 id="a-modified-csv-table-class">A modified CSV table class</h2>
 <p>pp</p>

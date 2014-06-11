@@ -32,7 +32,7 @@ def export_file case_dir,file_path
 
 end
 
-
+# exports novel directory structure with only relevant files
 def export_mongo
   # defined in immunoscore_results_loader
   JSON_CLASS_MAPPER.values.each do |mm_class|
@@ -47,4 +47,30 @@ def export_mongo
    
     end
   end
+end
+
+
+
+def make_html reporting_order=[
+                :histogram,
+                :original,
+                :density,
+                :ct_tile,
+                :im_tile,
+                :statistic,
+                :classification]
+  all_cases=[]
+  ImmunoScoreResults.all.each do |i|
+    case_summary=[]
+    i.cd.sort.each do |slide_cd|
+      reporting_order.each do |feature|
+        slide_cd.public_send(feature).sort!{|a,b| a.path<=>b.path}.each do |report|
+          #binding.pry
+          case_summary<< report[:path]
+        end
+      end
+    end
+    all_cases << case_summary
+  end
+  all_cases
 end

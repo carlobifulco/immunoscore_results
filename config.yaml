@@ -1,5 +1,5 @@
 # destination for reformatted immunoscore results
-export_dir: "./results_export"
+export_dir: "./definiens_results_export"
 # source immunoscore directory
 base_dir: "/Volumes/cbb_transfer"
 # data base name

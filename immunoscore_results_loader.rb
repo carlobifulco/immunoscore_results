@@ -1,6 +1,7 @@
 #Copyright (c) 2014, Carlo B. Bifulco. All rights reserved.
 
 require "csv"
+require_relative "database_connection"
 require_relative "analyzer"
 require_relative "data_struct"
 
@@ -24,7 +25,7 @@ require_relative "data_struct"
 #IM1, IM2, IM3
 
 ### Where all the Definies stuff resides
-BASE_DIR=YAML.load_file("config.yaml")["base_dir"] or "/Volumes/cbb_transfer"
+BASE_DIR=YAML.load_file("./config.yaml")["base_dir"] or "/Volumes/cbb_transfer"
 
 
 
@@ -176,6 +177,7 @@ def mongo_load_all search_results=search_all(), json_class_mapper=JSON_CLASS_MAP
     #puts "data set type=#{data_set[:type]}"
     puts "class =#{mm_class}"
     query=make_query data_set
+    puts "query= #{query}"
     #binding.pry
     if mm_class.where(query).all.empty?
       mm_object=mm_class.create data_set

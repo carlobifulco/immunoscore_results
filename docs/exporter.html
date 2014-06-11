@@ -34,6 +34,11 @@
               </a>
             
               
+              <a class="source" href="database_connection.html">
+                database_connection.rb
+              </a>
+            
+              
               <a class="source" href="exporter.html">
                 exporter.rb
               </a>
@@ -115,10 +120,7 @@ require_relative <span class="hljs-string">"immunoscore_results_loader"</span></
     fh=<span class="hljs-constant">File</span>.new(case_dir+<span class="hljs-string">"/CD3/"</span>+<span class="hljs-constant">File</span>.basename(file_path),<span class="hljs-string">"w"</span>)
   <span class="hljs-keyword">end</span>
 
-<span class="hljs-keyword">end</span>
-
-
-<span class="hljs-function"><span class="hljs-keyword">def</span> </span>export_mongo</pre></div></div>
+<span class="hljs-keyword">end</span></pre></div></div>
             
         </li>
         
@@ -128,6 +130,21 @@ require_relative <span class="hljs-string">"immunoscore_results_loader"</span></
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>exports novel directory structure with only relevant files</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">def</span> </span>export_mongo</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <p>defined in immunoscore_results_loader</p>
 
@@ -145,6 +162,45 @@ require_relative <span class="hljs-string">"immunoscore_results_loader"</span></
    
     <span class="hljs-keyword">end</span>
   <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> </span>make_html reporting_order=[
+                <span class="hljs-symbol">:histogram</span>,
+                <span class="hljs-symbol">:original</span>,
+                <span class="hljs-symbol">:density</span>,
+                <span class="hljs-symbol">:ct_tile</span>,
+                <span class="hljs-symbol">:im_tile</span>,
+                <span class="hljs-symbol">:statistic</span>,
+                <span class="hljs-symbol">:classification</span>]
+  all_cases=[]
+  <span class="hljs-constant">ImmunoScoreResults</span>.all.each <span class="hljs-keyword">do</span> |i|
+    case_summary=[]
+    i.cd.sort.each <span class="hljs-keyword">do</span> |slide_cd|
+      reporting_order.each <span class="hljs-keyword">do</span> |feature|
+        slide_cd.public_send(feature).sort!{|a,b| a.path&lt;=&gt;b.path}.each <span class="hljs-keyword">do</span> |report|</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>binding.pry</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          case_summary&lt;&lt; report[<span class="hljs-symbol">:path</span>]
+        <span class="hljs-keyword">end</span>
+      <span class="hljs-keyword">end</span>
+    <span class="hljs-keyword">end</span>
+    all_cases &lt;&lt; case_summary
+  <span class="hljs-keyword">end</span>
+  all_cases
 <span class="hljs-keyword">end</span></pre></div></div>
             
         </li>
