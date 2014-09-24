@@ -34,9 +34,9 @@ Installation
 =========
 download zip from https://github.com/carlobifulco/immunoscore_results and unzip or alternatively clone the github repository
 
-cd in the code directory
-bundle
-bundle install
+      cd in the code directory
+      bundle
+      bundle install
 
 
 Setup
