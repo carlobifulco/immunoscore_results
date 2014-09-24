@@ -1,9 +1,12 @@
 #Copyright (c) 2014, Carlo B. Bifulco. All rights reserved.
 
 require "csv"
+require "yaml"
+require "mongo_mapper"
 require_relative "database_connection"
 require_relative "analyzer"
 require_relative "data_struct"
+
 
 ###Pull info from Definiens Immunoscore Directories
 # 
@@ -60,6 +63,7 @@ end
 def find_files file_name_ending="*Classification.jpg", base_dir=BASE_DIR
   results=[]
   Dir.glob("#{base_dir}/**/#{file_name_ending}").each do |full_path|
+    puts "am  working on #{full_path}"
     directory_name=full_path.split("\/")[-4]
     case_name=get_case_n full_path
     cd=directory_name.split("_")[2]
@@ -135,6 +139,7 @@ end
 
 
 #### merges all the JSON structures coming from the search functions
+# some metaprogramming: calls all find functions listed above
 def search_all
   r=[]
   [:find_histogram,:find_density,:find_statistics,:find_original, :find_classification, :find_im,:find_ct].each do |m|
@@ -151,6 +156,8 @@ class NilClass
   end
 end
 
+
+### query to ensure that entries are not recreated in teh database, but only paths and blobs are updated
 def make_query data_set
   if data_set.has_key?(:new_old)
     query={:case_n => data_set[:case_n],:cd_type=>data_set[:cd_type], :new_old=>data_set[:new_old]}
@@ -178,11 +185,12 @@ def mongo_load_all search_results=search_all(), json_class_mapper=JSON_CLASS_MAP
     puts "class =#{mm_class}"
     query=make_query data_set
     puts "query= #{query}"
-    #binding.pry
+    #query= {:case_n=>"RS-SV-05-16335", :cd_type=>"CD8", :tile=>"CT4"}
     if mm_class.where(query).all.empty?
       mm_object=mm_class.create data_set
       puts "mm created #{mm_object}"
     else
+      # upserts if entry pre-existing
       mm_class.set(query, data_set, :upsert => true )
       puts "uspsert created #{mm_object}"
       mm_object=mm_class.where(data_set).find_one
@@ -192,14 +200,8 @@ def mongo_load_all search_results=search_all(), json_class_mapper=JSON_CLASS_MAP
     mm_object.save
    
   end
-  #   case data_set[:type]
-  #   when :original
-  #     o=Original.create data_set
-  #     o.get_cd
-  #     o.save
-  #     puts o
-  #   end
-  # end
+  puts "\n\n\n"
+  puts "finished uploading to databes"
 end
 
 def show graphic_data

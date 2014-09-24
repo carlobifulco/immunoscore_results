@@ -261,6 +261,8 @@ class Test
 end
 
 
+
+### mapping from definiens file type to proper database entity
 JSON_CLASS_MAPPER={:ct_tile=>CtTile,
   :im_tile=>ImTile,
   :classification=>Classification,

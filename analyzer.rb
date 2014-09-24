@@ -1,5 +1,3 @@
-#Copyright (c) 2014, Carlo B. Bifulco. All rights reserved.
-
 require 'bundler/setup'
 
 require "mongo_mapper"
@@ -9,13 +7,12 @@ require 'bicrypt'
 require "chronic"
 
 
+
 require_relative "database_connection"
 
 
 
-
-
-
+MongoMapper.database = DATABASE_NAME
 
 
 def prompt(*args)
@@ -256,7 +253,7 @@ def remove_tabs file_path
   fh.close
   ext=File.extname file_path
   if ext==".xls" 
-    `mv #{file_path} #{file_path.gsub ext,".csv"}` 
+    `cp #{file_path} #{file_path.gsub ext,".csv"}` 
     return file_path.gsub ext,".csv"
   else
     return file_path
@@ -440,8 +437,8 @@ class #{@class_name}
   #prints the class
   def print_class
     puts template
-    self.mongo_types.each_pair do |k,v|
-      puts "  key :#{k}, #{v} "
+    self.mongo_types.sort_by{|k,v| k}.each do |r|
+      puts "  key :#{r[0]}, #{r[1]} "
     end
     puts "end"
   end
@@ -473,7 +470,9 @@ end
 
 ### Factory for new tables
 # takes care of definiens and also stores file paths
-# also removes nil headers
+# also removes nil headers\
+#also deals with tab formatted files
+#
 def load_table file_path
   if is_semicolon?(file_path) 
     file_path=remove_semicolon(file_path) 
@@ -483,7 +482,11 @@ def load_table file_path
   remove_nil_headers file_path
   c=CSV.table file_path
   c.file_path=file_path
-  c.data_classifier=DataClassifier.new file_path
+  begin
+    c.data_classifier=DataClassifier.new file_path
+  rescue
+    c.data_classifier=false
+  end
   c
 end
 
@@ -544,7 +547,6 @@ module DataUtilities
   ### Export csv
   #
   # file_path - the file to be exported to
-  #exports an instance
   def export file_path
     CSV.open(file_path, "wb") do |csv|
       headers=self.class.keys.keys.sort
@@ -569,6 +571,14 @@ module DataUtilities
     nil
   end
 
+  def pp_to_s
+    text=[]
+    self.keys.keys.sort.each do |k|
+      text<< " #{k}: #{self[k]};"
+    end
+    text.join "" 
+  end
+
 end
 
 
@@ -588,18 +598,7 @@ module ClassDataUtilities
       puts csv
     end
   end
-
-
-  def pp
-    self.keys.keys.sort.each do |k|
-      puts "#{k}"
-    end
-    nil
-  end
-
 end
-
-
 
 ### Utility function to create mongomapper keys
 #
