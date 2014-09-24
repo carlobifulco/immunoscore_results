@@ -19,13 +19,13 @@
           <div id="jump_page">
             
               
-              <a class="source" href="aggregator.html">
-                aggregator.rb
+              <a class="source" href="analyzer.html">
+                analyzer.rb
               </a>
             
               
-              <a class="source" href="analyzer.html">
-                analyzer.rb
+              <a class="source" href="cli.html">
+                cli.rb
               </a>
             
               
@@ -46,6 +46,11 @@
               
               <a class="source" href="immunoscore_results_loader.html">
                 immunoscore_results_loader.rb
+              </a>
+            
+              
+              <a class="source" href="mongo_aggregator.html">
+                mongo_aggregator.rb
               </a>
             
               
@@ -79,6 +84,8 @@
             
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-keyword">require</span> <span class="hljs-string">"csv"</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">"yaml"</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">"mongo_mapper"</span>
 require_relative <span class="hljs-string">"database_connection"</span>
 require_relative <span class="hljs-string">"analyzer"</span>
 require_relative <span class="hljs-string">"data_struct"</span></pre></div></div>
@@ -224,6 +231,7 @@ number is not included </p>
             <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">def</span> </span>find_files file_name_ending=<span class="hljs-string">"*Classification.jpg"</span>, base_dir=<span class="hljs-constant">BASE_DIR</span>
   results=[]
   <span class="hljs-constant">Dir</span>.glob(<span class="hljs-string">"<span class="hljs-subst">#{base_dir}</span>/**/<span class="hljs-subst">#{file_name_ending}</span>"</span>).each <span class="hljs-keyword">do</span> |full_path|
+    puts <span class="hljs-string">"am  working on <span class="hljs-subst">#{full_path}</span>"</span>
     directory_name=full_path.split(<span class="hljs-string">"\/"</span>)[-<span class="hljs-number">4</span>]
     case_name=get_case_n full_path
     cd=directory_name.split(<span class="hljs-string">"_"</span>)[<span class="hljs-number">2</span>]
@@ -318,6 +326,7 @@ number is not included </p>
                 <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <h3 id="merges-all-the-json-structures-coming-from-the-search-functions">merges all the JSON structures coming from the search functions</h3>
+<p>some metaprogramming: calls all find functions listed above</p>
 
             </div>
             
@@ -335,9 +344,22 @@ number is not included </p>
   <span class="hljs-function"><span class="hljs-keyword">def</span> </span> to_sym
     <span class="hljs-keyword">false</span>
   <span class="hljs-keyword">end</span>
-<span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <h2 id="query-to-ensure-that-entries-are-not-recreated-in-teh-database-but-only-paths-and-blobs-are-updated">query to ensure that entries are not recreated in teh database, but only paths and blobs are updated</h2>
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> </span>make_query data_set
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">def</span> </span>make_query data_set
   <span class="hljs-keyword">if</span> data_set.has_key?(<span class="hljs-symbol">:new_old</span>)
     query={<span class="hljs-symbol">:case_n</span> =&gt; data_set[<span class="hljs-symbol">:case_n</span>],<span class="hljs-symbol">:cd_type=&gt;data_set</span>[<span class="hljs-symbol">:cd_type</span>], <span class="hljs-symbol">:new_old=&gt;data_set</span>[<span class="hljs-symbol">:new_old</span>]}
   <span class="hljs-keyword">elsif</span> data_set.has_key?(<span class="hljs-symbol">:tile</span>)
@@ -351,11 +373,11 @@ number is not included </p>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               <h3 id="load-datasets-in-their-mongo-classes">load datasets in their mongo classes</h3>
 <p>if entry preexisting updates results</p>
@@ -372,11 +394,11 @@ number is not included </p>
         </li>
         
         
-        <li id="section-13">
+        <li id="section-14">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
               <p>puts “data set type=#{data_set[:type]}”</p>
 
@@ -389,42 +411,20 @@ number is not included </p>
         </li>
         
         
-        <li id="section-14">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
-              </div>
-              <p>binding.pry</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> mm_class.where(query).all.empty?
-      mm_object=mm_class.create data_set
-      puts <span class="hljs-string">"mm created <span class="hljs-subst">#{mm_object}</span>"</span>
-    <span class="hljs-keyword">else</span>
-      mm_class.set(query, data_set, <span class="hljs-symbol">:upsert</span> =&gt; <span class="hljs-keyword">true</span> )
-      puts <span class="hljs-string">"uspsert created <span class="hljs-subst">#{mm_object}</span>"</span>
-      mm_object=mm_class.where(data_set).find_one
-    <span class="hljs-keyword">end</span></pre></div></div>
-            
-        </li>
-        
-        
         <li id="section-15">
             <div class="annotation">
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
-              <p>binding.pry</p>
+              <p>query= {:case_n=&gt;”RS-SV-05-16335”, :cd_type=&gt;”CD8”, :tile=&gt;”CT4”}</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    mm_object.get_cd
-    mm_object.save
-   
-  <span class="hljs-keyword">end</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> mm_class.where(query).all.empty?
+      mm_object=mm_class.create data_set
+      puts <span class="hljs-string">"mm created <span class="hljs-subst">#{mm_object}</span>"</span>
+    <span class="hljs-keyword">else</span></pre></div></div>
             
         </li>
         
@@ -435,18 +435,35 @@ number is not included </p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
-              <p>  case data_set[:type]
-  when :original
-    o=Original.create data_set
-    o.get_cd
-    o.save
-    puts o
-  end
-end</p>
+              <p>upserts if entry pre-existing</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">end</span>
+            <div class="content"><div class='highlight'><pre>      mm_class.set(query, data_set, <span class="hljs-symbol">:upsert</span> =&gt; <span class="hljs-keyword">true</span> )
+      puts <span class="hljs-string">"uspsert created <span class="hljs-subst">#{mm_object}</span>"</span>
+      mm_object=mm_class.where(data_set).find_one
+    <span class="hljs-keyword">end</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>binding.pry</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    mm_object.get_cd
+    mm_object.save
+   
+  <span class="hljs-keyword">end</span>
+  puts <span class="hljs-string">"\n\n\n"</span>
+  puts <span class="hljs-string">"finished uploading to databes"</span>
+<span class="hljs-keyword">end</span>
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> </span>show graphic_data
   tf=<span class="hljs-constant">Tempfile</span>.new [<span class="hljs-string">"temp"</span>,<span class="hljs-string">".jpg"</span>]

@@ -19,13 +19,13 @@
           <div id="jump_page">
             
               
-              <a class="source" href="aggregator.html">
-                aggregator.rb
+              <a class="source" href="analyzer.html">
+                analyzer.rb
               </a>
             
               
-              <a class="source" href="analyzer.html">
-                analyzer.rb
+              <a class="source" href="cli.html">
+                cli.rb
               </a>
             
               
@@ -46,6 +46,11 @@
               
               <a class="source" href="immunoscore_results_loader.html">
                 immunoscore_results_loader.rb
+              </a>
+            
+              
+              <a class="source" href="mongo_aggregator.html">
+                mongo_aggregator.rb
               </a>
             
               
@@ -73,12 +78,10 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>Copyright (c) 2014, Carlo B. Bifulco. All rights reserved.</p>
-
+              
             </div>
             
-            <div class="content"><div class='highlight'><pre>
-<span class="hljs-keyword">require</span> <span class="hljs-string">'bundler/setup'</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">require</span> <span class="hljs-string">'bundler/setup'</span>
 
 <span class="hljs-keyword">require</span> <span class="hljs-string">"mongo_mapper"</span>
 <span class="hljs-keyword">require</span> <span class="hljs-string">"csv"</span>
@@ -87,13 +90,12 @@
 <span class="hljs-keyword">require</span> <span class="hljs-string">"chronic"</span>
 
 
+
 require_relative <span class="hljs-string">"database_connection"</span>
 
 
 
-
-
-
+<span class="hljs-constant">MongoMapper</span>.database = <span class="hljs-constant">DATABASE_NAME</span>
 
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> </span>prompt(*args)
@@ -508,7 +510,7 @@ require_relative <span class="hljs-string">"database_connection"</span>
   fh.close
   ext=<span class="hljs-constant">File</span>.extname file_path
   <span class="hljs-keyword">if</span> ext==<span class="hljs-string">".xls"</span> 
-    `mv <span class="hljs-comment">#{file_path} #{file_path.gsub ext,".csv"}` </span>
+    `cp <span class="hljs-comment">#{file_path} #{file_path.gsub ext,".csv"}` </span>
     <span class="hljs-keyword">return</span> file_path.gsub ext,<span class="hljs-string">".csv"</span>
   <span class="hljs-keyword">else</span>
     <span class="hljs-keyword">return</span> file_path
@@ -776,8 +778,8 @@ class <span class="hljs-subst">#{<span class="hljs-variable">@class_name</span>}
             
             <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">def</span> </span>print_class
     puts template
-    <span class="hljs-keyword">self</span>.mongo_types.each_pair <span class="hljs-keyword">do</span> |k,v|
-      puts <span class="hljs-string">"  key :<span class="hljs-subst">#{k}</span>, <span class="hljs-subst">#{v}</span> "</span>
+    <span class="hljs-keyword">self</span>.mongo_types.sort_by{|k,v| k}.each <span class="hljs-keyword">do</span> |r|
+      puts <span class="hljs-string">"  key :<span class="hljs-subst">#{r[<span class="hljs-number">0</span>]}</span>, <span class="hljs-subst">#{r[<span class="hljs-number">1</span>]}</span> "</span>
     <span class="hljs-keyword">end</span>
     puts <span class="hljs-string">"end"</span>
   <span class="hljs-keyword">end</span>
@@ -826,7 +828,8 @@ class <span class="hljs-subst">#{<span class="hljs-variable">@class_name</span>}
               </div>
               <h2 id="factory-for-new-tables">Factory for new tables</h2>
 <p>takes care of definiens and also stores file paths
-also removes nil headers</p>
+also removes nil headers\
+also deals with tab formatted files</p>
 
             </div>
             
@@ -839,7 +842,11 @@ also removes nil headers</p>
   remove_nil_headers file_path
   c=<span class="hljs-constant">CSV</span>.table file_path
   c.file_path=file_path
-  c.data_classifier=<span class="hljs-constant">DataClassifier</span>.new file_path
+  <span class="hljs-keyword">begin</span>
+    c.data_classifier=<span class="hljs-constant">DataClassifier</span>.new file_path
+  <span class="hljs-keyword">rescue</span>
+    c.data_classifier=<span class="hljs-keyword">false</span>
+  <span class="hljs-keyword">end</span>
   c
 <span class="hljs-keyword">end</span></pre></div></div>
             
@@ -957,8 +964,7 @@ end</p>
                 <a class="pilcrow" href="#section-31">&#182;</a>
               </div>
               <h2 id="export-csv">Export csv</h2>
-<p>file_path - the file to be exported to
-exports an instance</p>
+<p>file_path - the file to be exported to</p>
 
             </div>
             
@@ -986,6 +992,14 @@ exports an instance</p>
     <span class="hljs-keyword">nil</span>
   <span class="hljs-keyword">end</span>
 
+  <span class="hljs-function"><span class="hljs-keyword">def</span> </span>pp_to_s
+    text=[]
+    <span class="hljs-keyword">self</span>.keys.keys.sort.each <span class="hljs-keyword">do</span> |k|
+      text&lt;&lt; <span class="hljs-string">" <span class="hljs-subst">#{k}</span>: <span class="hljs-subst">#{<span class="hljs-keyword">self</span>[k]}</span>;"</span>
+    <span class="hljs-keyword">end</span>
+    text.join <span class="hljs-string">""</span> 
+  <span class="hljs-keyword">end</span>
+
 <span class="hljs-keyword">end</span>
 
 
@@ -1005,15 +1019,6 @@ exports an instance</p>
       puts csv
     <span class="hljs-keyword">end</span>
   <span class="hljs-keyword">end</span>
-
-
-  <span class="hljs-function"><span class="hljs-keyword">def</span> </span>pp
-    <span class="hljs-keyword">self</span>.keys.keys.sort.each <span class="hljs-keyword">do</span> |k|
-      puts <span class="hljs-string">"<span class="hljs-subst">#{k}</span>"</span>
-    <span class="hljs-keyword">end</span>
-    <span class="hljs-keyword">nil</span>
-  <span class="hljs-keyword">end</span>
-
 <span class="hljs-keyword">end</span></pre></div></div>
             
         </li>
