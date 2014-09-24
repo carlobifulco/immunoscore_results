@@ -49,5 +49,5 @@ Edit config.yaml to setup the root of the immunoscore directory tree, choose a m
 Run
 ====
 
-ruby cli.rb -h
+    ruby cli.rb -h
 
