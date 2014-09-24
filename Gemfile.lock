@@ -1,13 +1,3 @@
-GIT
-  remote: git://github.com/pry/pry.git
-  revision: 929c608dd4a99e1d7db4163d293d44e1b2816f93
-  tag: v0.10.0
-  specs:
-    pry (0.10.0)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -20,63 +10,16 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    addressable (2.3.6)
     bicrypt (1.2.0)
-    bio-logger (1.0.1)
-      log4r (>= 1.1.9)
-    bio-table (1.0.0)
-      bio-logger
     bson (1.11.1)
     bson_ext (1.11.1)
       bson (~> 1.11.1)
     builder (3.2.2)
-    business_time (0.7.3)
-      activesupport (>= 3.1.0)
-      tzinfo
-    childprocess (0.5.3)
-      ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
-    clbustos-rtf (0.4.2)
-    coderay (1.1.0)
-    coffee-script (2.3.0)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.8.0)
-    commonwatir (4.0.0)
-    daemons (1.1.9)
     differ (0.1.2)
-    dirty-memoize (0.0.4)
-    domain_name (0.5.21)
-      unf (>= 0.0.5, < 1.0.0)
-    em-websocket (0.3.8)
-      addressable (>= 2.1.1)
-      eventmachine (>= 0.12.9)
-    eventmachine (1.0.3)
-    execjs (2.2.1)
-    extendmatrix (0.3.1)
-    fastercsv (1.5.5)
-    ffi (1.9.4)
     gibberish (1.4.0)
-    holidays (1.0.6)
-    http-cookie (1.0.2)
-      domain_name (~> 0.5)
     i18n (0.6.11)
     json (1.8.1)
-    log4r (1.1.10)
-    mechanize (2.7.3)
-      domain_name (~> 0.5, >= 0.5.1)
-      http-cookie (~> 1.0)
-      mime-types (~> 2.0)
-      net-http-digest_auth (~> 1.1, >= 1.1.1)
-      net-http-persistent (~> 2.5, >= 2.5.2)
-      nokogiri (~> 1.4)
-      ntlm-http (~> 0.1, >= 0.1.1)
-      webrobots (>= 0.0.9, < 0.2)
-    method_source (0.8.2)
-    mime-types (2.3)
-    mini_portile (0.6.0)
-    minimization (0.2.1)
-      text-table (~> 1.2)
     minitest (5.4.1)
     mm-versionable (0.2.9)
       bson
@@ -91,132 +34,21 @@ GEM
       activesupport (>= 3.0)
       mongo (~> 1.8)
       plucky (~> 0.6.5)
-    multi_json (1.10.1)
-    mustache (0.99.6)
-    net-http-digest_auth (1.4)
-    net-http-persistent (2.9.4)
-    nokogiri (1.6.3.1)
-      mini_portile (= 0.6.0)
-    ntlm-http (0.1.1)
-    pdfkit (0.6.2)
     plucky (0.6.6)
       mongo (~> 1.5)
-    prawn (0.8.4)
-      prawn-core (>= 0.8.4, < 0.9)
-      prawn-layout (>= 0.8.4, < 0.9)
-      prawn-security (>= 0.8.4, < 0.9)
-    prawn-core (0.8.4)
-    prawn-layout (0.8.4)
-    prawn-security (0.8.4)
-    prawn-svg (0.9.1.11)
-      prawn (>= 0.8.4)
-    rack (1.5.2)
-    rack-protection (1.5.3)
-      rack
-    rainbow (2.0.0)
-    rdiscount (2.1.7.1)
-    redis (3.1.0)
-    redis-namespace (1.5.1)
-      redis (~> 3.0, >= 3.0.4)
-    reportbuilder (1.4.2)
-      clbustos-rtf (~> 0.4.0)
-      prawn (~> 0.8.4)
-      prawn-svg (~> 0.9.1)
-      text-table (~> 1.2)
-    rserve-client (0.3.1)
-    rserve-simpler (0.0.6)
-      rserve-client (~> 0.3.0)
-    ruby-ole (1.2.11.7)
-    ruby_expect (1.0)
-    rubyzip (1.1.6)
-    rufus-scheduler (2.0.23)
-      tzinfo (>= 0.3.23)
-    selenium-webdriver (2.43.0)
-      childprocess (~> 0.5)
-      multi_json (~> 1.0)
-      rubyzip (~> 1.0)
-      websocket (~> 1.0)
-    sinatra (1.4.5)
-      rack (~> 1.4)
-      rack-protection (~> 1.4)
-      tilt (~> 1.3, >= 1.3.4)
-    sinatra-cross_origin (0.3.2)
-    sinatra-websocket (0.3.0)
-      em-websocket (~> 0.3.6)
-      eventmachine
-      thin (>= 1.3.1)
-    slop (3.6.0)
-    spreadsheet (0.6.9)
-      ruby-ole (>= 1.0)
-    statsample (0.15.1)
-      dirty-memoize (~> 0.0)
-      extendmatrix (~> 0.3.1)
-      fastercsv
-      minimization (~> 0.2.0)
-      reportbuilder (~> 1.0)
-      spreadsheet (~> 0.6.0)
-      statsample-bivariate-extension (~> 0.13.0)
-      svg-graph (~> 1.0)
-    statsample-bivariate-extension (0.13.4)
-    svg-graph (1.0.5)
-    text-table (1.2.3)
-    thin (1.6.2)
-      daemons (>= 1.0.9)
-      eventmachine (>= 1.0.0)
-      rack (>= 1.0.0)
     thor (0.19.1)
     thread_safe (0.3.4)
-    tilt (1.4.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.6)
-    watir (5.0.0)
-      commonwatir (~> 4)
-      watir-webdriver
-    watir-webdriver (0.6.11)
-      selenium-webdriver (>= 2.18.0)
-    webrobots (0.1.1)
-    websocket (1.2.1)
-    whenever (0.9.2)
-      activesupport (>= 2.3.4)
-      chronic (>= 0.6.3)
-    wkhtmltopdf-binary (0.9.9.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   bicrypt
-  bio-table
   bson_ext
-  business_time
   chronic
-  coffee-script
   gibberish
-  holidays
-  mechanize
   mm-versionable
   mongo_mapper
-  mustache
-  pdfkit
-  pry!
-  rainbow
-  rdiscount
-  redis
-  redis-namespace
-  rserve-client (~> 0.3)
-  rserve-simpler
-  ruby_expect
-  rubyzip
-  rufus-scheduler (= 2.0.23)
-  sinatra
-  sinatra-cross_origin
-  sinatra-websocket
-  statsample
   thor
-  watir
-  watir-webdriver
-  whenever
-  wkhtmltopdf-binary

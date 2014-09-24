@@ -89,6 +89,8 @@ class StatResults
   key :old_number_of_cells_im_tile_5, Integer
 end
 
+
+### aggregates in  a single spreadsheat all csv/stat files entries present in database
 def write_stats_csv file_path
   csv_array=[]<< Statistic.all[0].data_load.to_s.split("\n")[0]
   ###Stat Results will contain all datasets in an csv format
