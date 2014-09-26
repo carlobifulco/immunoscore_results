@@ -52,4 +52,5 @@ Run
 ====
 
     ruby cli.rb -h
+    Follow help intructions
 
