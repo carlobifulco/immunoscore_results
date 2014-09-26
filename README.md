@@ -36,6 +36,7 @@ Installation
 download zip from https://github.com/carlobifulco/immunoscore_results/archive/master.zip and unzip or alternatively clone the github repository
 
       cd in the code directory
+      gem install bundler
       bundle
       bundle install
 
