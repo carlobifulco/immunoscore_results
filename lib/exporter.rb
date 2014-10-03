@@ -7,7 +7,16 @@ require_relative "data_struct"
 require_relative "immunoscore_results_loader"
 
 ### Where all export from Definiens go
-EXPORT_DIR=YAML.load_file("config.yaml")["export_dir"] or "./results_export"
+if File.exists?("./config.yaml") 
+  EXPORT_DIR= (YAML.load_file("./config.yaml")["export_dir"]) 
+elsif File.exists?("../config.yaml") 
+  EXPORT_DIR= (YAML.load_file("../config.yaml")["export_dir"]) 
+else
+  EXPORT_DIR= (File.basename File.absolute_path ".")
+end
+
+
+
 
 def export_clean_all
   `rm -rf #{EXPORT_DIR}/*`

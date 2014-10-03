@@ -7,6 +7,8 @@ require_relative "database_connection"
 require_relative "analyzer"
 require_relative "data_struct"
 
+puts "WORKING #{`pwd`}; exists #{File.exists?("../config.yaml")}"
+
 
 ###Pull info from Definiens Immunoscore Directories
 # 
@@ -28,8 +30,13 @@ require_relative "data_struct"
 #IM1, IM2, IM3
 
 ### Where all the Definies stuff resides
-BASE_DIR=YAML.load_file("./config.yaml")["base_dir"] or "/Volumes/cbb_transfer"
-
+if File.exists?("./config.yaml") 
+  BASE_DIR= (YAML.load_file("./config.yaml")["base_dir"]) 
+elsif File.exists?("../config.yaml") 
+  BASE_DIR= (YAML.load_file("../config.yaml")["base_dir"]) 
+else
+  BASE_DIR= (File.basename File.absolute_path ".")
+end
 
 
 #BASE_DIR="/Volumes/I\$/Christopher\ Paustian/Colon\ Immunoscore"

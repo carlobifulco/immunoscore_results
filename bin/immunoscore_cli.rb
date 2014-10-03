@@ -1,10 +1,9 @@
 require 'rubygems'
 require 'bundler/setup'
 require "yaml"
-require "immunoscore_aggregator"
-
+require "../immunoscore_results_aggregator"
+#!/usr/bin/env ruby
 # coding: utf-8
-#! /usr/bin/env ruby
 
 
 require "thor"
