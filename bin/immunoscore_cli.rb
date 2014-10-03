@@ -3,7 +3,8 @@ require 'bundler/setup'
 require "yaml"
 require "immunoscore_aggregator"
 
-
+# coding: utf-8
+#! /usr/bin/env ruby
 
 
 require "thor"
