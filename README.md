@@ -33,24 +33,22 @@ Requirements
 
 Installation
 =========
-download zip from https://github.com/carlobifulco/immunoscore_results/archive/master.zip and unzip or alternatively clone the github repository
-
-      cd in the code directory
-      gem install bundler
-      bundle
-      bundle install
+gem install immunoscore_results_aggregator
 
 
 Setup
 =====
 
-Edit config.yaml to setup the root of the immunoscore directory tree, choose a mongodb name,  and a name for the results export directory
+Edit config.rb to setup the root of the immunoscore directory tree, choose a mongodb name,  and a name for the results export directory
+    
+    immunoscore_cli.rb show_config
+    immunoscore_cli.rb edit_config
 
 <img src='https://notationalvelocity.s3.amazonaws.com/4-2014-09-24-12-02-23--0700.png?AWSAccessKeyId=AKIAIHNTWDGBIXEE6HEA&Signature=R8oDkvDRMRCMZ5hgRFxNQ5pykTI%3D&Expires=2042737344' width=' ' height=' '>  </img>
 
 Run
 ====
 
-    ruby cli.rb -h
+    immunoscore_cli.rb
     Follow help intructions
 
