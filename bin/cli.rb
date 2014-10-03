@@ -1,8 +1,8 @@
-
-require_relative "immunoscore_results_loader.rb"
-require_relative "mongo_aggregator.rb"
-require_relative "exporter"
+require 'rubygems'
+require 'bundler/setup'
 require "yaml"
+require "immunoscore_aggregator"
+
 
 
 
