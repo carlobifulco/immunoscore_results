@@ -12,8 +12,8 @@ require "date"
 
 
 def check_config
-  raise "cannot find definiens base directory.  please check and edit configuration file; location #{CONFIG_PATH}; #{File.read(CONFIG_PATH)}"    unless Dir.exists? config["base_dir"]
-  Dir.mkdir config["export_dir"] unless Dir.exists? config["export_dir"]
+  raise "cannot find definiens base directory.  please check and edit configuration file"    unless Dir.exists? BASE_DIR
+  Dir.mkdir config["export_dir"] unless Dir.exists? EXPORT_DIR
 end
 
 
