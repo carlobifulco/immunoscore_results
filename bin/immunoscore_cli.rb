@@ -56,9 +56,12 @@ class CliSummary < Thor                                                 # [1]
     export_mongo
   end
 
-  desc "show_config", "shows config file; no arguments"
+  desc "show_config", "shows config filepath; no arguments"
   def show_config
     ShowConfig.show_config
+  end
+  desc "edit config", "edit config file; no argumens"
+  def edit_config
     begin 
       `emacs #{ShowConfig.show_config}`
     rescue

@@ -7,6 +7,14 @@ Gem::Specification.new do |s|
   s.name        = 'immunoscore_results_aggregator'
   s.version     = '0.0.1'
   s.date        = '2014-10-01'
+  s.add_runtime_dependency "bson_ext"
+  s.add_runtime_dependency 'mongo_mapper'
+  s.add_runtime_dependency "bson_ext"
+  s.add_runtime_dependency 'gibberish'
+  s.add_runtime_dependency 'bicrypt'
+  s.add_runtime_dependency 'chronic'
+  s.add_runtime_dependency "thor"
+  s.add_runtime_dependency 'mm-versionable'
   s.summary     = "immunoscore_results_aggregator"
   s.description = "immunoscore_results_aggregator"
   s.license       = "MIT"
