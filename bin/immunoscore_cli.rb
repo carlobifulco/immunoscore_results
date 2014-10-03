@@ -56,12 +56,15 @@ class CliSummary < Thor                                                 # [1]
     export_mongo
   end
 
-  # desc "show_config", "shows config file; no arguments"
-  # def show_config
-  #   puts "CONFIG located at #{CONFIG_PATH}"
-  #   puts "\n\n\n"
-  #   puts File.read CONFIG_PATH
-  # end
+  desc "show_config", "shows config file; no arguments"
+  def show_config
+    ShowConfig.show_config
+    begin 
+      `emacs #{ShowConfig.show_config}`
+    rescue
+    end
+  end
+
 
 
 end

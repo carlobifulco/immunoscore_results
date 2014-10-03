@@ -28,7 +28,7 @@ Each entry contains file paths, a binary blob of the relevant snapshot, case num
 Requirements
 ===========
      *nix
-     ruby > 2.0
+     ruby >= 1.9.3
      mongodb
 
 Installation

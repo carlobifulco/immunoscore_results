@@ -6,3 +6,9 @@ BASE_DIR= "/Users/carlobifulco/Desktop/fda_amp"
 # data base name
 DATABASE_NAME= "immunoscore_results_aggregator"
 
+module ShowConfig
+  def self.show_config
+    puts "PATH: #{File.absolute_path(__FILE__)}"
+    File.absolute_path(__FILE__)
+    end
+end

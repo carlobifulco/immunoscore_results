@@ -1,9 +1,0 @@
-# export destination directory for reformatted immunoscore results
-export_dir: "/Users/carlobifulco/Desktop/fda_amp"
-
-# source immunoscore directory
-base_dir: "/Users/carlobifulco/Desktop/fda_amp"
-# data base name
-database_name: "immunoscore_results_aggregator"
-
-
