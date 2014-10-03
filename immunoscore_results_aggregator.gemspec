@@ -5,15 +5,15 @@ require 'immunoscore_results_aggregator/version'
 
 Gem::Specification.new do |s|
   s.name        = 'immunoscore_results_aggregator'
-  s.version     = '0.0.6'
+  s.version     = '0.0.9'
   s.date        = '2014-10-01'
-  s.add_runtime_dependency 'mongo_mapper'
+  s.add_runtime_dependency 'bundler', '~> 1.6', '= 1.7'
+  s.add_runtime_dependency  "mongo_mapper", '0.12.0'
   s.add_runtime_dependency "bson_ext"
   s.add_runtime_dependency 'gibberish'
   s.add_runtime_dependency 'bicrypt'
-  s.add_runtime_dependency 'chronic'
   s.add_runtime_dependency "thor"
-  s.add_runtime_dependency 'mm-versionable'
+  s.add_runtime_dependency "i18n", "0.6.4"
   s.summary     = "immunoscore_results_aggregator"
   s.description = "immunoscore_results_aggregator"
   s.license       = "MIT"
@@ -25,7 +25,5 @@ Gem::Specification.new do |s|
     'https://github.com/carlobifulco/immunoscore_results'
   s.require_paths = ["lib"]
   s.license       = 'MIT'
-  s.add_development_dependency "bundler", "~> 1.6"
-  s.add_development_dependency "rake"
 end
 

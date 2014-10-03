@@ -4,7 +4,6 @@ require "mongo_mapper"
 require "csv"
 require "gibberish"
 require 'bicrypt'
-require "chronic"
 
 
 
