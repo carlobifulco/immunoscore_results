@@ -6,8 +6,9 @@ require "mongo_mapper"
 require_relative "database_connection"
 require_relative "analyzer"
 require_relative "data_struct"
+require_relative "../config.rb"
 
-puts "WORKING #{`pwd`}; exists #{File.exists?("../config.yaml")}"
+#puts "WORKING #{`pwd`}; exists #{File.exists?("../config.yaml")}"
 
 
 ###Pull info from Definiens Immunoscore Directories
@@ -28,15 +29,6 @@ puts "WORKING #{`pwd`}; exists #{File.exists?("../config.yaml")}"
 #.image_0000006506_histogram.jpg
 #image_0000006506_CT1.jpg. CT2, CT3
 #IM1, IM2, IM3
-
-### Where all the Definies stuff resides
-if File.exists?("./config.yaml") 
-  BASE_DIR= (YAML.load_file("./config.yaml")["base_dir"]) 
-elsif File.exists?("../config.yaml") 
-  BASE_DIR= (YAML.load_file("../config.yaml")["base_dir"]) 
-else
-  BASE_DIR= (File.basename File.absolute_path ".")
-end
 
 
 #BASE_DIR="/Volumes/I\$/Christopher\ Paustian/Colon\ Immunoscore"

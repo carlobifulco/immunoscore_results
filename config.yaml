@@ -1,8 +1,8 @@
 # export destination directory for reformatted immunoscore results
-export_dir: "./definiens_results_export"
+export_dir: "/Users/carlobifulco/Desktop/fda_amp"
 
 # source immunoscore directory
-base_dir: "/Volumes/I$/Christopher Paustian/Colon Immunoscore  4-21-2014/CRC 61-65"
+base_dir: "/Users/carlobifulco/Desktop/fda_amp"
 # data base name
 database_name: "immunoscore_results_aggregator"
 

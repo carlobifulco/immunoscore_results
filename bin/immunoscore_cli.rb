@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 require "yaml"
-require "../immunoscore_results_aggregator"
+require_relative "../immunoscore_results_aggregator"
 #!/usr/bin/env ruby
 # coding: utf-8
 
@@ -10,9 +10,9 @@ require "thor"
 require "date"
 
 
+
 def check_config
-  config=(YAML.load_file("./config.yaml"))
-  raise "cannot find definiens base directory.  please check configuration file"    unless Dir.exists? config["base_dir"]
+  raise "cannot find definiens base directory.  please check and edit configuration file; location #{CONFIG_PATH}; #{File.read(CONFIG_PATH)}"    unless Dir.exists? config["base_dir"]
   Dir.mkdir config["export_dir"] unless Dir.exists? config["export_dir"]
 end
 
@@ -55,6 +55,15 @@ class CliSummary < Thor                                                 # [1]
     check_config
     export_mongo
   end
+
+  # desc "show_config", "shows config file; no arguments"
+  # def show_config
+  #   puts "CONFIG located at #{CONFIG_PATH}"
+  #   puts "\n\n\n"
+  #   puts File.read CONFIG_PATH
+  # end
+
+
 end
 
 

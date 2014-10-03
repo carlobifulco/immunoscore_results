@@ -5,16 +5,7 @@ require "csv"
 require_relative "analyzer"
 require_relative "data_struct"
 require_relative "immunoscore_results_loader"
-
-### Where all export from Definiens go
-if File.exists?("./config.yaml") 
-  EXPORT_DIR= (YAML.load_file("./config.yaml")["export_dir"]) 
-elsif File.exists?("../config.yaml") 
-  EXPORT_DIR= (YAML.load_file("../config.yaml")["export_dir"]) 
-else
-  EXPORT_DIR= (File.basename File.absolute_path ".")
-end
-
+require_relative "../config.rb"
 
 
 
