@@ -5,7 +5,7 @@ require 'immunoscore_results_aggregator/version'
 
 Gem::Specification.new do |s|
   s.name        = 'immunoscore_results_aggregator'
-  s.version     = '0.0.9'
+  s.version     = '0.1.0'
   s.date        = '2014-10-01'
   s.add_runtime_dependency 'bundler', '~> 1.6', '= 1.7'
   s.add_runtime_dependency  "mongo_mapper", '0.12.0'
