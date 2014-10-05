@@ -36,7 +36,7 @@ class CliSummary < Thor                                                 # [1]
   # def list(search="")
   #   # list everything
   # end
-  desc "export_summary_csv [N]", "merges and exports all stat results; export filename as an argument "
+  desc "export_summary_csv [export filename]", "merges and exports all stat results; export filename as an argument "
   def export_summary_csv all_results_file_name="all_definiens_results_#{Date.today.to_s}.csv"
     write_stats_csv all_results_file_name
     puts "\n\n\n"
@@ -61,7 +61,7 @@ class CliSummary < Thor                                                 # [1]
   def show_config
     ShowConfig.show_config
   end
-  desc "edit config", "edit config file; no argumens"
+  desc "edit_config", "edit config file; will open file in emacs;  no argumens"
   def edit_config
     begin 
       `emacs #{ShowConfig.show_config}`
